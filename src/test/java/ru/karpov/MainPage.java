@@ -24,6 +24,9 @@ public class MainPage {
     @FindBy(css = ".css-kixvqm:nth-child(2)")
     private WebElement businessButton;
 
+    @FindBy(xpath = "//*[contains(@class, 'chakra-link css-pka4it')]")
+    private WebElement showNewsButton;
+
     public void inputSelect(final String regionName) {
         final Select region = new Select(this.selectRegion);
         region.selectByValue(regionName);
@@ -34,5 +37,8 @@ public class MainPage {
         this.businessButton.click();
     }
 
-
+    public void clickShowNewsButton()
+    {
+        this.showNewsButton.click();
+    }
 }

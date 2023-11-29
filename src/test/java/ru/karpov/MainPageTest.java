@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -14,6 +15,7 @@ public class MainPageTest {
 
     public static MainPage mainPage;
     public static WebDriver driver;
+    public static JavascriptExecutor jse;
 
     @BeforeClass
     public static void setup() {
@@ -21,20 +23,29 @@ public class MainPageTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("mainpage"));
+
         mainPage = new MainPage(driver);
+
+        jse = (JavascriptExecutor)driver;
     }
 
     @Test
     public void selectRegionPetersburgTest() {
+        jse.executeScript("window.scrollTo(0,0)");
+
         mainPage.inputSelect("Санкт-Петербург");
+
         final String regionPhoneText =
                 driver.findElement(By.cssSelector(".css-ed0axp > #\\33 > .chakra-text")).getText();
+
         Assert.assertEquals("В Санкт-Петербурге", regionPhoneText);
     }
 
     @Test
     public void headerBusinessButtonTest()
     {
+        jse.executeScript("window.scrollTo(0,0)");
+
         mainPage.clickBusinessButton();
 
         Assert.assertEquals("Услуги РКО",driver.findElement(By.id("tabs-6--tab-0")).getText());
@@ -43,8 +54,23 @@ public class MainPageTest {
         Assert.assertEquals("Мобильное приложение", driver.findElement(By.id("tabs-6--tab-3")).getText());
     }
 
+    /*
+    @Test
+    public void showNewsButtonTest()
+    {
+        jse.executeScript("window.scrollTo(0,2000)");
 
+        mainPage.clickShowNewsButton();
 
+        Assert.assertEquals(ConfProperties.getProperty("newsUrl"),driver.getCurrentUrl());
+    }
+
+    @Test
+    public void supportButtonTest()
+    {
+        driver.findElement(By.cssSelector(".css-82oyxj")).click();
+    }
+*/
     @AfterClass
     public static void tearDown() {
         driver.quit();
