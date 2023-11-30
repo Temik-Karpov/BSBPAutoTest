@@ -1,67 +1,116 @@
 package ru.karpov;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.karpov.pageObjects.CurrencyPage;
+import ru.karpov.pageObjects.MainPage;
+import ru.karpov.pageObjects.NewsPage;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class MainPageTest {
 
     public static MainPage mainPage;
+    public static NewsPage newsPage;
+    public static CurrencyPage currencyPage;
     public static WebDriver driver;
+    public static JavascriptExecutor jse;
 
     @BeforeClass
     public static void setup() {
-        driver = new FirefoxDriver();
+        WebDriverManager.chromedriver().setup();
+
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get(ConfProperties.getProperty("mainpage"));
+
+        jse = (JavascriptExecutor) driver;
 
         mainPage = new MainPage(driver);
 
+        newsPage = new NewsPage(driver);
+
+        currencyPage = new CurrencyPage(driver);
     }
 
     @Test
-    public void selectRegionPetersburgTest() throws InterruptedException {
-        Thread.sleep(5000);
+    public void currencyButtonTest() {
+        driver.get(ConfProperties.getProperty("mainpage"));
+
+        new WebDriverWait(driver, Duration.ofSeconds(2));
+
+        jse.executeScript("window.scrollTo(0, 2500)");
+
+        new WebDriverWait(driver, Duration.ofSeconds(2));
+
+        mainPage.setCurrencyButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
+                until(ExpectedConditions.elementToBeClickable(mainPage.getCurrencyButton())));
+
+        mainPage.clickCurrencyButton();
+
+        new WebDriverWait(driver, Duration.ofSeconds(2));
+
+        assertThat(currencyPage.getCurrencyButtonList().size()).isEqualTo(5);
+    }
+
+    @Test
+    public void selectRegionPetersburgTest() {
+        jse.executeScript("window.scrollTo(top)");
+
+        new WebDriverWait(driver, Duration.ofSeconds(10)).
+                until(ExpectedConditions.elementToBeClickable(mainPage.getSelectRegion()));
 
         mainPage.inputSelect("Санкт-Петербург");
 
         final String regionPhoneText =
                 driver.findElement(By.cssSelector(".css-ed0axp > #\\33 > .chakra-text")).getText();
 
-        Assert.assertEquals("В Санкт-Петербурге", regionPhoneText);
+        assertThat(regionPhoneText).isEqualTo("В Санкт-Петербурге");
     }
 
     @Test
     public void headerBusinessButtonTest() {
+        jse.executeScript("window.scrollTo(top)");
+
+        new WebDriverWait(driver, Duration.ofSeconds(2));
+
+        mainPage.setBusinessButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
+                until(ExpectedConditions.elementToBeClickable(mainPage.getBusinessButton())));
 
         mainPage.clickBusinessButton();
-        Assert.assertEquals("Услуги РКО",driver.findElement(By.id("tabs-6--tab-0")).getText());
-        Assert.assertEquals("Корпоративные карты", driver.findElement(By.id("tabs-6--tab-1")).getText());
-        Assert.assertEquals("Торговый эквайринг", driver.findElement(By.id("tabs-6--tab-2")).getText());
-        Assert.assertEquals("Мобильное приложение", driver.findElement(By.id("tabs-6--tab-3")).getText());
+
+        assertThat(mainPage.getBusinessServiceText1()).isEqualTo("Услуги РКО");
+        assertThat(mainPage.getBusinessServiceText2()).isEqualTo("Корпоративные карты");
+        assertThat(mainPage.getBusinessServiceText3()).isEqualTo("Торговый эквайринг");
+        assertThat(mainPage.getBusinessServiceText4()).isEqualTo("Мобильное приложение");
     }
 
     @Test
     public void showNewsButtonTest() {
 
+        jse.executeScript("window.scrollTo(0, 2000)");
+
+        new WebDriverWait(driver, Duration.ofSeconds(2));
+
+        mainPage.setShowNewsButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
+                until(ExpectedConditions.elementToBeClickable(mainPage.getShowNewsButton())));
+
         mainPage.clickShowNewsButton();
 
-        Assert.assertEquals(ConfProperties.getProperty("newsUrl"),driver.getCurrentUrl());
+        new WebDriverWait(driver, Duration.ofSeconds(2));
 
-    }
-
-    @Test
-    public void supportButtonTest()
-    {
-        driver.findElement(By.cssSelector(".css-82oyxj")).click();
+        assertThat(newsPage.getTitleNewsText()).isEqualTo("Новости");
     }
 
     @AfterClass
