@@ -20,7 +20,6 @@ public class MainPage {
     @FindBy(xpath = "//*[contains(@class, 'chakra-link css-1hxq3ev')]")
     private WebElement button;
 
-
     @FindBy(css = ".css-kixvqm:nth-child(2)")
     private WebElement businessButton;
 

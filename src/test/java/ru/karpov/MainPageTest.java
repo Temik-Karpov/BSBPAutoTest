@@ -15,7 +15,6 @@ public class MainPageTest {
 
     public static MainPage mainPage;
     public static WebDriver driver;
-    public static JavascriptExecutor jse;
 
     @BeforeClass
     public static void setup() {
@@ -26,12 +25,11 @@ public class MainPageTest {
 
         mainPage = new MainPage(driver);
 
-        jse = (JavascriptExecutor)driver;
     }
 
     @Test
-    public void selectRegionPetersburgTest() {
-        jse.executeScript("window.scrollTo(0,0)");
+    public void selectRegionPetersburgTest() throws InterruptedException {
+        Thread.sleep(5000);
 
         mainPage.inputSelect("Санкт-Петербург");
 
@@ -42,27 +40,22 @@ public class MainPageTest {
     }
 
     @Test
-    public void headerBusinessButtonTest()
-    {
-        jse.executeScript("window.scrollTo(0,0)");
+    public void headerBusinessButtonTest() {
 
         mainPage.clickBusinessButton();
-
         Assert.assertEquals("Услуги РКО",driver.findElement(By.id("tabs-6--tab-0")).getText());
         Assert.assertEquals("Корпоративные карты", driver.findElement(By.id("tabs-6--tab-1")).getText());
         Assert.assertEquals("Торговый эквайринг", driver.findElement(By.id("tabs-6--tab-2")).getText());
         Assert.assertEquals("Мобильное приложение", driver.findElement(By.id("tabs-6--tab-3")).getText());
     }
 
-    /*
     @Test
-    public void showNewsButtonTest()
-    {
-        jse.executeScript("window.scrollTo(0,2000)");
+    public void showNewsButtonTest() {
 
         mainPage.clickShowNewsButton();
 
         Assert.assertEquals(ConfProperties.getProperty("newsUrl"),driver.getCurrentUrl());
+
     }
 
     @Test
@@ -70,7 +63,7 @@ public class MainPageTest {
     {
         driver.findElement(By.cssSelector(".css-82oyxj")).click();
     }
-*/
+
     @AfterClass
     public static void tearDown() {
         driver.quit();
