@@ -48,6 +48,9 @@ public class MainPageTest {
 
     @Когда("пользователь нажимает на кнопку Перейти")
     public void пользователь_нажимает_на_кнопку_перейти() throws InterruptedException {
+        //new WebDriverWait(driver, Duration.ofSeconds(2));
+        Thread.sleep(2000);
+
         jse.executeScript("window.scrollTo(0, 2500)");
 
         //new WebDriverWait(driver, Duration.ofSeconds(2));
@@ -103,12 +106,12 @@ public class MainPageTest {
                 .isEqualTo("Услуги РКО");
 
         softly.assertThat(mainPage.getBusinessServiceText2())
-                .as("Вторая кнопка должна иметь текст 'Торговый эквайринг'")
-                .isEqualTo("Торговый эквайринг");
+                .as("Вторая кнопка должна иметь текст 'Бизнес карта'")
+                .isEqualTo("Бизнес карта");
 
         softly.assertThat(mainPage.getBusinessServiceText3())
-                .as("Третья кнопка должна иметь текст 'Мобильное приложение'")
-                .isEqualTo("Мобильное приложение");
+                .as("Третья кнопка должна иметь текст 'Торговый эквайринг'")
+                .isEqualTo("Торговый эквайринг");
 
         softly.assertAll();
     }
