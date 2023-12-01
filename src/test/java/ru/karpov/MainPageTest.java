@@ -124,9 +124,6 @@ public class MainPageTest {
         //new WebDriverWait(driver, Duration.ofSeconds(2));
         Thread.sleep(2000);
 
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.stalenessOf(mainPage.getSelectRegion()));
-
         mainPage.clickShowNewsButton();
 
         //new WebDriverWait(driver, Duration.ofSeconds(2));
