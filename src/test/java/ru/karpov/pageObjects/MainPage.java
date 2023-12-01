@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+@SuppressWarnings("ALL")
 public class MainPage {
     public final WebDriver driver;
 
@@ -65,7 +66,8 @@ public class MainPage {
     }
 
     public String getBusinessServiceText1() {
-        return this.businessService1.getText();
+        return
+                businessService1.getText();
     }
 
     public String getBusinessServiceText2() {

@@ -10,11 +10,8 @@ import java.util.List;
 
 public class NewsPage {
 
-    private final WebDriver driver;
-
     public NewsPage(final WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
     }
 
     @FindBy(xpath="//*[@id=\"app-wrapper\"]/main/div/div/div[1]/h2")

@@ -28,7 +28,7 @@ public class MainPageTest {
     public static WebDriver driver;
     public static JavascriptExecutor jse;
 
-    @Дано("открытая {string} сайта")
+    @Дано("открытая главная страница {string}")
     public static void setup(final String url) {
         WebDriverManager.chromedriver().setup();
 
@@ -73,7 +73,7 @@ public class MainPageTest {
     }
 
     @Когда("пользователь меняет региона на {string}")
-    public void пользователь_менят_региона_на(final String region) {
+    public void пользователь_меняет_региона_на(final String region) {
         new WebDriverWait(driver, Duration.ofSeconds(10)).
                 until(ExpectedConditions.elementToBeClickable(mainPage.getSelectRegion()));
 
@@ -132,15 +132,15 @@ public class MainPageTest {
         Thread.sleep(2000);
     }
 
-    @Тогда("появляется заглвный текст {string}")
-    public void появляется_заглвный_текст(final String title) throws InterruptedException {
+    @Тогда("появляется заглавный текст {string}")
+    public void появляется_заглавный_текст(final String title) {
         assertThat(newsPage.getTitleNewsText())
                 .as("Заглавным текстом на данной странице должен быть 'Новости'")
                 .isNotNull()
                 .isEqualTo(title);
     }
 
-    @Тогда("закрыть страницу")
+    @Тогда("закрыть главную страницу")
     public void закрыть_страницу() {
         driver.quit();
     }
