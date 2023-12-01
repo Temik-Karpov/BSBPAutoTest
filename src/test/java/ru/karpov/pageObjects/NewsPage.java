@@ -39,6 +39,11 @@ public class NewsPage {
     @FindBy(xpath = ".//div[@class = 'chakra-linkbox css-ijriu2']")
     private List<WebElement> newsList;
 
+
+    public List<WebElement> getNewsCategoryValues() {
+        return newsCategoryValues;
+    }
+
     public List<WebElement> getNewsList() {
         return newsList;
     }

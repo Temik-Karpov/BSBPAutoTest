@@ -1,6 +1,7 @@
 package ru.karpov;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.assertj.core.api.Assertions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -31,24 +32,41 @@ public class NewsPageTest {
     }
 
     @Test
-    public void selectNewsYearTest() {
+    public void selectNewsYearTest() throws InterruptedException {
         newsPage.inputSelect("2022");
 
-        new WebDriverWait(driver, Duration.ofMillis(2000));
+        //new WebDriverWait(driver, Duration.ofMillis(2000));
+        Thread.sleep(2000);
 
-        assertThat(newsPage.getLastDateOfNews().getText()).contains("2022");
-        assertThat(newsPage.getDateOfNews().getText()).contains("2022");
+        assertThat(newsPage.getLastDateOfNews().getText())
+                .as("Дата должна содержать указанный год")
+                .endsWith("2022")
+                .doesNotContain("2023");
+
+        assertThat(newsPage.getDateOfNews().getText())
+                .as("Дата должна содержать указанный год")
+                .endsWith("2022")
+                .doesNotContain("2023");
     }
 
     @Test
-    public void selectNewsFilterTest() {
+    public void selectNewsFilterTest() throws InterruptedException {
         newsPage.clickNewsFilterValueButton();
 
-        new WebDriverWait(driver, Duration.ofMillis(2000));
+        //new WebDriverWait(driver, Duration.ofMillis(2000));
+        Thread.sleep(2000);
 
         final Integer newsCategoryCount = newsPage.newsCategoryCount("ЧАСТНЫМ КЛИЕНТАМ");
 
-        assertThat(newsCategoryCount).isEqualTo(newsPage.getNewsList().size());
+        Assertions.assertThat(newsPage.getNewsCategoryValues())
+                .filteredOn(value ->
+                value.getText().contains("ЧАСТНЫМ КЛИЕНТАМ"))
+                .extracting(value -> value.getText())
+                .containsOnly("ЧАСТНЫМ КЛИЕНТАМ");
+
+        Assertions.assertThat(newsPage.getNewsList())
+                .as("Кол-во новостей должно совпадать с кол-вом отображаемых категорий")
+                .hasSize(newsCategoryCount);
     }
 
 

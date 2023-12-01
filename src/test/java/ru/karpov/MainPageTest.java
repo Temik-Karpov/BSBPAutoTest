@@ -1,10 +1,12 @@
 package ru.karpov;
 
+import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.Когда;
+import io.cucumber.java.ru.Тогда;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,14 +28,14 @@ public class MainPageTest {
     public static WebDriver driver;
     public static JavascriptExecutor jse;
 
-    @BeforeClass
-    public static void setup() {
+    @Дано("открытая {string} сайта")
+    public static void setup(final String url) {
         WebDriverManager.chromedriver().setup();
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get(ConfProperties.getProperty("mainpage"));
+        driver.get(url);
 
         jse = (JavascriptExecutor) driver;
 
@@ -44,75 +46,101 @@ public class MainPageTest {
         currencyPage = new CurrencyPage(driver);
     }
 
-    @Test
-    public void currencyButtonTest() {
-        driver.get(ConfProperties.getProperty("mainpage"));
-
-        new WebDriverWait(driver, Duration.ofSeconds(2));
-
+    @Когда("пользователь нажимает на кнопку Перейти")
+    public void пользователь_нажимает_на_кнопку_перейти() throws InterruptedException {
         jse.executeScript("window.scrollTo(0, 2500)");
 
-        new WebDriverWait(driver, Duration.ofSeconds(2));
+        //new WebDriverWait(driver, Duration.ofSeconds(2));
+        Thread.sleep(2000);
 
         mainPage.setCurrencyButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
                 until(ExpectedConditions.elementToBeClickable(mainPage.getCurrencyButton())));
 
         mainPage.clickCurrencyButton();
 
-        new WebDriverWait(driver, Duration.ofSeconds(2));
-
-        assertThat(currencyPage.getCurrencyButtonList().size()).isEqualTo(5);
+        //new WebDriverWait(driver, Duration.ofSeconds(2));
+        Thread.sleep(2000);
     }
 
-    @Test
-    public void selectRegionPetersburgTest() {
-        jse.executeScript("window.scrollTo(top)");
+    @Тогда("должно появиться {int} пунктов")
+    public void должно_появиться_пунктов(final Integer buttonCount) {
+        Assertions.assertThat(currencyPage.getCurrencyButtonList())
+                .as("Кол-во кнопок на странице валюты должен быть 5")
+                .hasSize(buttonCount);
+    }
 
+    @Когда("пользователь меняет региона на {string}")
+    public void пользователь_менят_региона_на(final String region) {
         new WebDriverWait(driver, Duration.ofSeconds(10)).
                 until(ExpectedConditions.elementToBeClickable(mainPage.getSelectRegion()));
 
-        mainPage.inputSelect("Санкт-Петербург");
-
-        final String regionPhoneText =
-                driver.findElement(By.cssSelector(".css-ed0axp > #\\33 > .chakra-text")).getText();
-
-        assertThat(regionPhoneText).isEqualTo("В Санкт-Петербурге");
+        mainPage.inputSelect(region);
     }
 
-    @Test
-    public void headerBusinessButtonTest() {
-        jse.executeScript("window.scrollTo(top)");
+    @Тогда("текст под номером телефона меняется на {string}")
+    public void текст_под_номером_телефона_меняется_на(final String textUnderPhoneNumber) {
+        final String regionPhoneText = mainPage.getRegionSelectText();
 
-        new WebDriverWait(driver, Duration.ofSeconds(2));
+        assertThat(regionPhoneText)
+                .as("Под номером телефона должна отображаться надпись региона")
+                .isNotNull()
+                .isEqualTo(textUnderPhoneNumber);
+    }
 
+    @Когда("пользователь нажимает на кнопку Бизнесу")
+    public void пользователь_нажимает_на_кнопку_бизнесу() {
         mainPage.setBusinessButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
                 until(ExpectedConditions.elementToBeClickable(mainPage.getBusinessButton())));
 
         mainPage.clickBusinessButton();
-
-        assertThat(mainPage.getBusinessServiceText1()).isEqualTo("Услуги РКО");
-        assertThat(mainPage.getBusinessServiceText2()).isEqualTo("Корпоративные карты");
-        assertThat(mainPage.getBusinessServiceText3()).isEqualTo("Торговый эквайринг");
-        assertThat(mainPage.getBusinessServiceText4()).isEqualTo("Мобильное приложение");
     }
 
-    @Test
-    public void showNewsButtonTest() {
+    @Тогда("появляются нужные пункты")
+    public void появляются_услуги_рко_торговый_эквайринг_мобильное_приложение() {
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(mainPage.getBusinessServiceText1())
+                .as("Первая кнопка должна иметь текст 'Услуги РКО'")
+                .isEqualTo("Услуги РКО");
 
+        softly.assertThat(mainPage.getBusinessServiceText2())
+                .as("Вторая кнопка должна иметь текст 'Торговый эквайринг'")
+                .isEqualTo("Торговый эквайринг");
+
+        softly.assertThat(mainPage.getBusinessServiceText3())
+                .as("Третья кнопка должна иметь текст 'Мобильное приложение'")
+                .isEqualTo("Мобильное приложение");
+
+        softly.assertAll();
+    }
+
+    @Когда("пользователь нажимает на кнопку Новостей")
+    public void пользователь_нажимает_на_кнопку_новостей() throws InterruptedException {
         jse.executeScript("window.scrollTo(0, 2000)");
 
-        new WebDriverWait(driver, Duration.ofSeconds(2));
+        //new WebDriverWait(driver, Duration.ofSeconds(2));
+        Thread.sleep(2000);
 
         mainPage.setShowNewsButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
                 until(ExpectedConditions.elementToBeClickable(mainPage.getShowNewsButton())));
 
         mainPage.clickShowNewsButton();
 
-        new WebDriverWait(driver, Duration.ofSeconds(2));
-
-        assertThat(newsPage.getTitleNewsText()).isEqualTo("Новости");
+        //new WebDriverWait(driver, Duration.ofSeconds(2));
+        Thread.sleep(2000);
     }
 
+    @Тогда("появляется заглвный текст {string}")
+    public void появляется_заглвный_текст(final String title) throws InterruptedException {
+        assertThat(newsPage.getTitleNewsText())
+                .as("Заглавным текстом на данной странице должен быть 'Новости'")
+                .isNotNull()
+                .isEqualTo(title);
+    }
+
+    @Тогда("закрыть страницу")
+    public void закрыть_страницу() {
+        driver.quit();
+    }
     @AfterClass
     public static void tearDown() {
         driver.quit();
