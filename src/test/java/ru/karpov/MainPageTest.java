@@ -34,7 +34,7 @@ public class MainPageTest {
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get(url);
 
         jse = (JavascriptExecutor) driver;
@@ -74,6 +74,7 @@ public class MainPageTest {
 
     @Когда("пользователь меняет региона на {string}")
     public void пользователь_меняет_региона_на(final String region) {
+
         new WebDriverWait(driver, Duration.ofSeconds(10)).
                 until(ExpectedConditions.elementToBeClickable(mainPage.getSelectRegion()));
 
@@ -123,8 +124,8 @@ public class MainPageTest {
         //new WebDriverWait(driver, Duration.ofSeconds(2));
         Thread.sleep(2000);
 
-        mainPage.setShowNewsButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
-                until(ExpectedConditions.elementToBeClickable(mainPage.getShowNewsButton())));
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.stalenessOf(mainPage.getSelectRegion()));
 
         mainPage.clickShowNewsButton();
 
