@@ -7,6 +7,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.AfterClass;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -47,22 +48,21 @@ public class MainPageTest {
     }
 
     @Когда("пользователь нажимает на кнопку Перейти")
-    public void пользователь_нажимает_на_кнопку_перейти() throws InterruptedException {
-        //new WebDriverWait(driver, Duration.ofSeconds(2));
-        Thread.sleep(2000);
+    public void пользователь_нажимает_на_кнопку_перейти() {
 
-        jse.executeScript("window.scrollTo(0, 2500)");
+        jse.executeScript("window.scrollTo(0, 2200)");
 
-        //new WebDriverWait(driver, Duration.ofSeconds(2));
-        Thread.sleep(2000);
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.presenceOfElementLocated
+                        (By.xpath(".//ymaps[@class ='ymaps-2-1-79-events-pane ymaps-2-1-79-user-selection-none']")));
 
-        mainPage.setCurrencyButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
-                until(ExpectedConditions.elementToBeClickable(mainPage.getCurrencyButton())));
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(mainPage.getCurrencyButton()));
 
         mainPage.clickCurrencyButton();
 
-        //new WebDriverWait(driver, Duration.ofSeconds(2));
-        Thread.sleep(2000);
+        new WebDriverWait(driver, Duration.ofSeconds(5)).
+                until(ExpectedConditions.visibilityOf(currencyPage.getCurrencyTitle()));
     }
 
     @Тогда("должно появиться {int} пунктов")
@@ -75,7 +75,7 @@ public class MainPageTest {
     @Когда("пользователь меняет региона на {string}")
     public void пользователь_меняет_региона_на(final String region) {
 
-        new WebDriverWait(driver, Duration.ofSeconds(10)).
+        new WebDriverWait(driver, Duration.ofSeconds(5)).
                 until(ExpectedConditions.elementToBeClickable(mainPage.getSelectRegion()));
 
         mainPage.inputSelect(region);
@@ -118,16 +118,20 @@ public class MainPageTest {
     }
 
     @Когда("пользователь нажимает на кнопку Новостей")
-    public void пользователь_нажимает_на_кнопку_новостей() throws InterruptedException {
+    public void пользователь_нажимает_на_кнопку_новостей() {
+
         jse.executeScript("window.scrollTo(0, 2000)");
 
-        //new WebDriverWait(driver, Duration.ofSeconds(2));
-        Thread.sleep(2000);
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//div[@class = 'css-e1b41g']")));
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.elementToBeClickable(mainPage.getShowNewsButton()));
 
         mainPage.clickShowNewsButton();
 
-        //new WebDriverWait(driver, Duration.ofSeconds(2));
-        Thread.sleep(2000);
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOf(newsPage.getLastDateOfNews()));
     }
 
     @Тогда("появляется заглавный текст {string}")

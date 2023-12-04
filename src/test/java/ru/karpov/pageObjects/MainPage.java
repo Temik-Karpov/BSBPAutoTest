@@ -52,6 +52,20 @@ public class MainPage {
     @FindBy(xpath = ".//a[@href = '/finance/exchange'][@class = 'chakra-link css-6x1e5l']")
     private WebElement currencyButton;
 
+    @FindBy(xpath = ".//h3[text() = 'Офисы и банкоматы']")
+    private WebElement mapText;
+
+    @FindBy(xpath = ".//div[@class = 'css-1qdyvok']/div[@id = '14']")
+    private WebElement footerInfo;
+
+    public WebElement getFooterInfo() {
+        return footerInfo;
+    }
+
+    public WebElement getMapText() {
+        return mapText;
+    }
+
     public void setCurrencyButton(final WebElement currencyButton) {
         this.currencyButton = currencyButton;
     }

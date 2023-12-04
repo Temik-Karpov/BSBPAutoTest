@@ -5,14 +5,18 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.karpov.pageObjects.NewsPage;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.time.Duration;
+import java.util.Calendar;
 
 public class NewsPageTest {
     public static NewsPage newsPage;
@@ -31,11 +35,19 @@ public class NewsPageTest {
     }
 
     @Когда("пользователь меняет год на {string}")
-    public void пользователь_меняет_год_на(final String year) throws InterruptedException {
+    public void пользователь_меняет_год_на(final String year) {
+
+        String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated
+                        (By.xpath(".//h3[contains(text(), " +  currentYear + ")]")));
+
         newsPage.inputSelect(year);
 
-        //new WebDriverWait(driver, Duration.ofMillis(2000));
-        Thread.sleep(2000);
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated
+                        (By.xpath(".//h3[contains(text(), " + year + ")]")));
     }
 
     @Тогда("все новости должны содержать {string} в дате")
@@ -53,13 +65,21 @@ public class NewsPageTest {
 
     @Когда("пользователь выбирает категорию Частным клиентам")
     public void пользователь_выбирает_категорию() throws InterruptedException {
-        //new WebDriverWait(driver, Duration.ofMillis(2000));
-        Thread.sleep(2000);
+        String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
+
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated
+                        (By.xpath(".//h3[contains(text(), " +  currentYear + ")]")));
+
+        System.out.println(newsPage.newsCategoryCount("ЧАСТНЫМ КЛИЕНТАМ"));
 
         newsPage.clickNewsFilterValueButton();
 
-        //new WebDriverWait(driver, Duration.ofMillis(2000));
-        Thread.sleep(2000);
+        new WebDriverWait(driver, Duration.ofSeconds(5))
+                .until(ExpectedConditions.presenceOfElementLocated
+                        (By.xpath(".//h3[contains(text(), " +  currentYear + ")]")));
+
+        System.out.println(newsPage.newsCategoryCount("ЧАСТНЫМ КЛИЕНТАМ"));
     }
 
     @Тогда("все отобразившиеся новости имеют данную категорию")

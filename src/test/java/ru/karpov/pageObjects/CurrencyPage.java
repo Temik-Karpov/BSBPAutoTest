@@ -16,6 +16,13 @@ public class CurrencyPage {
     @FindBy(xpath = ".//div[@class = 'chakra-tabs__tablist css-ffvuvs']/button")
     private List<WebElement> currencyButtonList;
 
+    @FindBy(xpath = ".//p[text() = 'Обмен валюты']")
+    private WebElement currencyTitle;
+
+    public WebElement getCurrencyTitle() {
+        return currencyTitle;
+    }
+
     public List<WebElement> getCurrencyButtonList() {
         return currencyButtonList;
     }
