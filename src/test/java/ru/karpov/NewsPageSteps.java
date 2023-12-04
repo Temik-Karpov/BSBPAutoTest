@@ -18,7 +18,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import java.time.Duration;
 import java.util.Calendar;
 
-public class NewsPageTest {
+public class NewsPageSteps {
     public static NewsPage newsPage;
     public static WebDriver driver;
 
@@ -75,11 +75,7 @@ public class NewsPageTest {
 
         newsPage.clickNewsFilterValueButton();
 
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.presenceOfElementLocated
-                        (By.xpath(".//h3[contains(text(), " +  currentYear + ")]")));
-
-        System.out.println(newsPage.newsCategoryCount("ЧАСТНЫМ КЛИЕНТАМ"));
+        Thread.sleep(2000);
     }
 
     @Тогда("все отобразившиеся новости имеют данную категорию")

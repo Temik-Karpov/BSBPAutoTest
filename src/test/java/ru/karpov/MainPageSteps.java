@@ -6,7 +6,6 @@ import io.cucumber.java.ru.Тогда;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.AfterClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -18,10 +17,12 @@ import ru.karpov.pageObjects.MainPage;
 import ru.karpov.pageObjects.NewsPage;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class MainPageTest {
+public class MainPageSteps {
 
     public static MainPage mainPage;
     public static NewsPage newsPage;
@@ -50,7 +51,7 @@ public class MainPageTest {
     @Когда("пользователь нажимает на кнопку Перейти")
     public void пользователь_нажимает_на_кнопку_перейти() {
 
-        jse.executeScript("window.scrollTo(0, 2200)");
+        jse.executeScript("window.scrollTo(0, 2400)");
 
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.presenceOfElementLocated
@@ -65,11 +66,11 @@ public class MainPageTest {
                 until(ExpectedConditions.visibilityOf(currencyPage.getCurrencyTitle()));
     }
 
-    @Тогда("должно появиться {int} пунктов")
-    public void должно_появиться_пунктов(final Integer buttonCount) {
+    @Тогда("должны появиться пункты:")
+    public void должны_появиться_пункты(Map<String, Integer> buttons) {
         Assertions.assertThat(currencyPage.getCurrencyButtonList())
                 .as("Кол-во кнопок на странице валюты должен быть 5")
-                .hasSize(buttonCount);
+                .hasSize(buttons.size());
     }
 
     @Когда("пользователь меняет региона на {string}")
@@ -99,31 +100,15 @@ public class MainPageTest {
         mainPage.clickBusinessButton();
     }
 
-    @Тогда("появляются нужные пункты")
-    public void появляются_услуги_рко_торговый_эквайринг_мобильное_приложение() {
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(mainPage.getBusinessServiceText1())
-                .as("Первая кнопка должна иметь текст 'Услуги РКО'")
-                .isEqualTo("Услуги РКО");
-
-        softly.assertThat(mainPage.getBusinessServiceText2())
-                .as("Вторая кнопка должна иметь текст 'Бизнес карта'")
-                .isEqualTo("Бизнес карта");
-
-        softly.assertThat(mainPage.getBusinessServiceText3())
-                .as("Третья кнопка должна иметь текст 'Торговый эквайринг'")
-                .isEqualTo("Торговый эквайринг");
-
-        softly.assertAll();
-    }
-
     @Когда("пользователь нажимает на кнопку Новостей")
     public void пользователь_нажимает_на_кнопку_новостей() {
 
-        jse.executeScript("window.scrollTo(0, 2000)");
+        jse.executeScript("window.scrollTo(0, 2300)");
 
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(".//div[@class = 'css-e1b41g']")));
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        (By.xpath(".//div[@class = 'css-e1b41g']"))));
+
 
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(mainPage.getShowNewsButton()));
@@ -146,9 +131,23 @@ public class MainPageTest {
     public void закрыть_страницу() {
         driver.quit();
     }
-    @AfterClass
-    public static void tearDown() {
-        driver.quit();
+
+    @Тогда("появляются нужные пункты:")
+    public void появляются_нужные_пункты(List<String> dataTable) {
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(mainPage.getBusinessServiceText1())
+                .as("Первая кнопка должна иметь текст 'Услуги РКО'")
+                .isEqualTo(dataTable.get(0));
+
+        softly.assertThat(mainPage.getBusinessServiceText2())
+                .as("Вторая кнопка должна иметь текст 'Бизнес карта'")
+                .isEqualTo(dataTable.get(1));
+
+        softly.assertThat(mainPage.getBusinessServiceText3())
+                .as("Третья кнопка должна иметь текст 'Торговый эквайринг'")
+                .isEqualTo(dataTable.get(2));
+
+        softly.assertAll();
     }
 }
 
