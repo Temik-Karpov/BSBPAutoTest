@@ -1,12 +1,12 @@
 package ru.karpov;
 
-import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.karpov.pageObjects.BusinessPage;
@@ -22,28 +22,14 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class MainPageSteps extends BaseSteps {
 
-    public static MainPage mainPage;
-    public static NewsPage newsPage;
-    public static CurrencyPage currencyPage;
+    public MainPage mainPage = new MainPage(driver);
+    public NewsPage newsPage = new NewsPage(driver);
+    public CurrencyPage currencyPage = new CurrencyPage(driver);
 
-    public static BusinessPage businessPage;
-    public static JavascriptExecutor jse;
+    public BusinessPage businessPage = new BusinessPage(driver);
+    public JavascriptExecutor jse = (JavascriptExecutor) driver;
 
-    @Дано("открытая главная страница {string}")
-    public static void open_page(final String url) {
-        setupDriver();
-        driver.get(url);
 
-        jse = (JavascriptExecutor) driver;
-
-        mainPage = new MainPage(driver);
-
-        newsPage = new NewsPage(driver);
-
-        currencyPage = new CurrencyPage(driver);
-
-        businessPage = new BusinessPage(driver);
-    }
 
     @Когда("пользователь нажимает на кнопку Перейти")
     public void пользователь_нажимает_на_кнопку_перейти() {
@@ -89,14 +75,6 @@ public class MainPageSteps extends BaseSteps {
                 .isEqualTo(textUnderPhoneNumber);
     }
 
-    @Когда("пользователь нажимает на кнопку Бизнесу")
-    public void пользователь_нажимает_на_кнопку_бизнесу() {
-        mainPage.setBusinessButton(new WebDriverWait(driver, Duration.ofSeconds(10)).
-                until(ExpectedConditions.elementToBeClickable(mainPage.getBusinessButton())));
-
-        mainPage.clickBusinessButton();
-    }
-
     @Когда("пользователь нажимает на кнопку Новостей")
     public void пользователь_нажимает_на_кнопку_новостей() {
 
@@ -124,7 +102,17 @@ public class MainPageSteps extends BaseSteps {
                 .isEqualTo(title);
     }
 
-
+    @Когда("пользователь нажимает на {string} в header")
+    public void user_press_button(final String buttonText) {
+        for(WebElement w : mainPage.getHeaderButtons())
+        {
+            if(w.getText().equals(buttonText))
+            {
+                w.click();
+                break;
+            }
+        }
+    }
 
     @Тогда("появляются нужные пункты:")
     public void появляются_нужные_пункты(List<String> dataTable) {
@@ -144,9 +132,7 @@ public class MainPageSteps extends BaseSteps {
         softly.assertAll();
     }
 
-    @Тогда("закрыть главную страницу")
-    public void close_page() {
-        driver.quit();
-    }
+
+
 }
 

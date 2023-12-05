@@ -3,7 +3,7 @@ package ru.karpov;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import org.assertj.core.api.Assertions;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,17 +16,16 @@ import java.util.Calendar;
 
 
 public class NewsPageSteps extends BaseSteps {
-    public static NewsPage newsPage;
+
+    public NewsPage newsPage = new NewsPage(driver);
 
     @Дано("открытая новостная страница {string}")
     public void open_page(final String url) {
         setupDriver();
         driver.get(url);
-
-        newsPage = new NewsPage(driver);
     }
 
-    @Когда("пользователь меняет год на {string}")
+    @Когда("пользователь меняет {string}")
     public void пользователь_меняет_год_на(final String year) {
 
         String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
@@ -35,15 +34,20 @@ public class NewsPageSteps extends BaseSteps {
                 .until(ExpectedConditions.presenceOfElementLocated
                         (By.xpath(".//h3[contains(text(), " +  currentYear + ")]")));
 
+
         newsPage.inputSelect(year);
 
-        new WebDriverWait(driver, Duration.ofSeconds(5))
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.presenceOfElementLocated
                         (By.xpath(".//h3[contains(text(), " + year + ")]")));
+
+        screenshotAllure();
     }
 
     @Тогда("все новости должны содержать {string} в дате")
     public void все_новости_должны_содержать_в_дате(final String year) {
+
         assertThat(newsPage.getLastDateOfNews().getText())
                 .as("Дата должна содержать указанный год")
                 .endsWith(year)
@@ -55,36 +59,40 @@ public class NewsPageSteps extends BaseSteps {
                 .doesNotContain("2023");
     }
 
-    @Когда("пользователь выбирает категорию Частным клиентам")
-    public void пользователь_выбирает_категорию() throws InterruptedException {
-        String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.presenceOfElementLocated
-                        (By.xpath(".//h3[contains(text(), " +  currentYear + ")]")));
-
-        newsPage.clickNewsFilterValueButton();
+    @Когда("пользователь выбирает {string}")
+    public void пользователь_выбирает_категорию(final String buttonText) throws InterruptedException {
+        System.out.println(newsPage.getNewsFilterValues().size());
+        for(WebElement w : newsPage.getNewsFilterValues())
+        {
+            System.out.println(w.getText());
+            if(w.getText().equals(buttonText))
+            {
+                w.click();
+                break;
+            }
+        }
 
         Thread.sleep(2000);
     }
 
-    @Тогда("все отобразившиеся новости имеют данную категорию")
-    public void все_отобразившиеся_новости_имеют_данную_категорию() {
-        final Integer newsCategoryCount = newsPage.newsCategoryCount("ЧАСТНЫМ КЛИЕНТАМ");
+    @Тогда("все отобразившиеся новости имеют {string}")
+    public void все_отобразившиеся_новости_имеют_данную_категорию(final String buttonText) {
+        final Integer newsCategoryCount = newsPage.newsCategoryCount(buttonText);
 
-        Assertions.assertThat(newsPage.getNewsCategoryValues())
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(newsPage.getNewsCategoryValues())
                 .filteredOn(value ->
-                        value.getText().contains("ЧАСТНЫМ КЛИЕНТАМ"))
+                        value.getText().toLowerCase().contains(buttonText))
                 .extracting(WebElement::getText)
-                .containsOnly("ЧАСТНЫМ КЛИЕНТАМ");
+                .containsOnly(buttonText);
 
-        Assertions.assertThat(newsPage.getNewsList())
+        softly.assertThat(newsPage.getNewsList())
                 .as("Кол-во новостей должно совпадать с кол-вом отображаемых категорий")
                 .hasSize(newsCategoryCount);
+
+        softly.assertAll();
     }
 
-    @Тогда("закрыть новостную страницу")
-    public void close_page() {
-        driver.quit();
-    }
+
+
 }

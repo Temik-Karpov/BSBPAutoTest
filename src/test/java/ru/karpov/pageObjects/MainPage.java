@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 @SuppressWarnings("ALL")
 public class MainPage {
     public final WebDriver driver;
@@ -15,27 +17,17 @@ public class MainPage {
         this.driver = driver;
     }
 
-    @FindBy(xpath = "//*[contains(@class, 'css-17igell')]")
+    @FindBy(xpath = "//select")
     private WebElement selectRegion;
 
-
-    @FindBy(xpath = "//*[contains(@class, 'css-1hxq3ev')]")
-    private WebElement button;
-
-
-    @FindBy(xpath = "//a[@href = '/business']")
-    private WebElement businessButton;
-
+    @FindBy(xpath = "//a[contains(@class, 'css-kixvqm')]")
+    private List<WebElement> headerButtons;
 
     @FindBy(xpath = "//*[contains(@class, 'css-pka4it')]")
     private WebElement showNewsButton;
 
     @FindBy(css = ".css-ed0axp > #\\33 > .chakra-text")
     private WebElement regionSelect;
-
-    public String getRegionSelectText() {
-        return regionSelect.getText();
-    }
 
     @FindBy(xpath = ".//a[@href = '/finance/exchange'][@class = 'chakra-link css-6x1e5l']")
     private WebElement currencyButton;
@@ -45,6 +37,14 @@ public class MainPage {
 
     @FindBy(xpath = ".//div[@class = 'css-1qdyvok']/div[@id = '14']")
     private WebElement footerInfo;
+
+    public List<WebElement> getHeaderButtons() {
+        return headerButtons;
+    }
+
+    public String getRegionSelectText() {
+        return regionSelect.getText();
+    }
 
     public WebElement getFooterInfo() {
         return footerInfo;
@@ -73,11 +73,6 @@ public class MainPage {
         region.selectByValue(regionName);
     }
 
-    public void clickBusinessButton()
-    {
-        this.businessButton.click();
-    }
-
     public void clickShowNewsButton()
     {
         this.showNewsButton.click();
@@ -89,17 +84,10 @@ public class MainPage {
     }
 
 
-    public WebElement getBusinessButton() {
-        return businessButton;
-    }
-
     public WebElement getShowNewsButton() {
         return showNewsButton;
     }
 
-    public void setBusinessButton(final WebElement businessButton) {
-        this.businessButton = businessButton;
-    }
 
     public void setShowNewsButton(final WebElement showNewsButton) {
         this.showNewsButton = showNewsButton;

@@ -31,12 +31,15 @@ public class NewsPage {
     private List<WebElement> newsCategoryValues;
     ////div[contains(@class, 'chakra-container')][.//button[contains(@class, 'css-2vve5b')][text()='Бизнесу']]/div[contains(@class, 'chakra-linkbox')]//span
 
-    @FindBy(xpath = ".//div[@class = 'css-2imjyh']/button[contains(text(), 'Частным клиентам')]")
-    private WebElement newsFilterValueButton;
+    @FindBy(xpath = "//div[@class = 'css-2imjyh']/button")
+    private List<WebElement> newsFilterValues;
 
     @FindBy(xpath = ".//div[@class = 'chakra-linkbox css-ijriu2']")
     private List<WebElement> newsList;
 
+    public List<WebElement> getNewsFilterValues() {
+        return newsFilterValues;
+    }
 
     public List<WebElement> getNewsCategoryValues() {
         return newsCategoryValues;
@@ -49,17 +52,12 @@ public class NewsPage {
     public Integer newsCategoryCount(final String category)
     {
         int count = 0;
-        for(WebElement element : this.newsCategoryValues)
+        for(WebElement element : this.newsFilterValues)
         {
             if(element.getText().equals(category))
                 count++;
         }
         return count;
-    }
-
-    public void clickNewsFilterValueButton()
-    {
-        this.newsFilterValueButton.click();
     }
 
     public WebElement getDateOfNews() {
