@@ -30,18 +30,6 @@ public class MainPage {
     @FindBy(xpath = "//*[contains(@class, 'css-pka4it')]")
     private WebElement showNewsButton;
 
-
-    @FindBy(xpath = "//*[contains(@id, 'tabs-6--tab-0')]")
-    private WebElement businessService1;
-
-
-    @FindBy(xpath = "//*[contains(@id, 'tabs-6--tab-1')]")
-    private WebElement businessService2;
-
-
-    @FindBy(xpath = "//*[contains(@id, 'tabs-6--tab-2')]")
-    private WebElement businessService3;
-
     @FindBy(css = ".css-ed0axp > #\\33 > .chakra-text")
     private WebElement regionSelect;
 
@@ -79,18 +67,6 @@ public class MainPage {
         return currencyButton;
     }
 
-    public String getBusinessServiceText1() {
-        return
-                businessService1.getText();
-    }
-
-    public String getBusinessServiceText2() {
-        return this.businessService2.getText();
-    }
-
-    public String getBusinessServiceText3() {
-        return this.businessService3.getText();
-    }
 
     public void inputSelect(final String regionName) {
         final Select region = new Select(this.selectRegion);

@@ -1,44 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Тестирование новостной страницы сайта" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T11:23:22" hostname="LAPTOP-65K5U4D1" time="30.725">
+<testsuite name="Тестирование новостной страницы сайта" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-12-05T12:10:04" hostname="LAPTOP-65K5U4D1" time="10.764">
   <properties/>
-  <testcase name="Проверка смены года в фильтре новостей #1" classname="Тестирование новостной страницы сайта" time="24.75"/>
-  <testcase name="Проверка смены года в фильтре новостей #2" classname="Тестирование новостной страницы сайта" time="5.968"/>
-  <system-out><![CDATA[14:23:22.456 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
-14:23:22.873 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Removing resolution chrome=119 from cache (expired on Tue Dec 05 14:20:09 MSK 2023)
-14:23:22.903 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient -- ex-0000000001 preparing request execution
-14:23:22.921 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.ProtocolExec -- ex-0000000001 target auth state: UNCHALLENGED
-14:23:22.923 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.ProtocolExec -- ex-0000000001 proxy auth state: UNCHALLENGED
-14:23:22.923 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.ConnectExec -- ex-0000000001 acquiring connection with route {s}->https://raw.githubusercontent.com:443
-14:23:22.923 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient -- ex-0000000001 acquiring endpoint (3 MINUTES)
-14:23:22.926 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager -- ex-0000000001 endpoint lease request (3 MINUTES) [route: {s}->https://raw.githubusercontent.com:443][total available: 0; route allocated: 0 of 5; total allocated: 0 of 25]
-14:23:22.933 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager -- ex-0000000001 endpoint leased [route: {s}->https://raw.githubusercontent.com:443][total available: 0; route allocated: 1 of 5; total allocated: 1 of 25]
-14:23:22.955 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager -- ex-0000000001 acquired ep-0000000001
-14:23:22.955 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient -- ex-0000000001 acquired endpoint ep-0000000001
-14:23:22.955 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.ConnectExec -- ex-0000000001 opening connection {s}->https://raw.githubusercontent.com:443
-14:23:22.956 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient -- ep-0000000001 connecting endpoint (null)
-14:23:22.962 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager -- ep-0000000001 connecting endpoint to https://raw.githubusercontent.com:443 (30 SECONDS)
-14:23:22.962 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator -- raw.githubusercontent.com resolving remote address
-14:23:32.984 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.DefaultManagedHttpClientConnection -- http-outgoing-0 close connection IMMEDIATE
-14:23:32.984 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient -- ep-0000000001 endpoint closed
-14:23:32.984 [Test worker] DEBUG org.apache.hc.client5.http.impl.classic.InternalHttpClient -- ep-0000000001 discarding endpoint
-14:23:32.984 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager -- ep-0000000001 releasing endpoint
-14:23:32.994 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager -- ep-0000000001 connection is not kept alive
-14:23:32.994 [Test worker] DEBUG org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager -- ep-0000000001 connection released [route: {s}->https://raw.githubusercontent.com:443][total available: 0; route allocated: 0 of 5; total allocated: 0 of 25]
-14:23:32.994 [Test worker] WARN io.github.bonigarcia.wdm.versions.VersionDetector -- Error reading commands.properties, using local instead
-14:23:33.015 [Test worker] DEBUG io.github.bonigarcia.wdm.versions.VersionDetector -- Detecting chrome version using online commands.properties
-14:23:33.019 [Test worker] DEBUG io.github.bonigarcia.wdm.versions.Shell -- Running command on the shell: [cmd.exe, /C, wmic, datafile, where, name="%PROGRAMFILES:\=\\%\\Google\\Chrome\\Application\\chrome.exe", get, Version, /value]
-14:23:33.194 [Test worker] DEBUG io.github.bonigarcia.wdm.versions.Shell -- Result: Version=119.0.6045.200
-14:23:33.196 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
-14:23:33.196 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
-14:23:33.198 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Storing resolution chrome=119 in cache (valid until 15:23:33 05/12/2023 MSK)
-14:23:33.230 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
-14:23:33.232 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
-14:23:47.043 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
-14:23:47.068 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 15:23:33 05/12/2023 MSK)
-14:23:47.072 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
-14:23:47.072 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
-14:23:47.081 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
-14:23:47.083 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
+  <testcase name="Проверка смены года в фильтре новостей #1" classname="Тестирование новостной страницы сайта" time="6.987"/>
+  <testcase name="Проверка смены года в фильтре новостей #2" classname="Тестирование новостной страницы сайта" time="3.771"/>
+  <system-out><![CDATA[15:10:04.299 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
+15:10:04.821 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 15:23:33 05/12/2023 MSK)
+15:10:04.822 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
+15:10:04.823 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
+15:10:04.853 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
+15:10:04.854 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
+15:10:11.088 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
+15:10:11.119 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 15:23:33 05/12/2023 MSK)
+15:10:11.121 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
+15:10:11.121 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
+15:10:11.127 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
+15:10:11.129 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

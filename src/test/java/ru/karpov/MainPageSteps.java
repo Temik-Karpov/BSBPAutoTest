@@ -9,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.karpov.pageObjects.BusinessPage;
 import ru.karpov.pageObjects.CurrencyPage;
 import ru.karpov.pageObjects.MainPage;
 import ru.karpov.pageObjects.NewsPage;
@@ -24,6 +25,8 @@ public class MainPageSteps extends BaseSteps {
     public static MainPage mainPage;
     public static NewsPage newsPage;
     public static CurrencyPage currencyPage;
+
+    public static BusinessPage businessPage;
     public static JavascriptExecutor jse;
 
     @Дано("открытая главная страница {string}")
@@ -38,6 +41,8 @@ public class MainPageSteps extends BaseSteps {
         newsPage = new NewsPage(driver);
 
         currencyPage = new CurrencyPage(driver);
+
+        businessPage = new BusinessPage(driver);
     }
 
     @Когда("пользователь нажимает на кнопку Перейти")
@@ -124,15 +129,15 @@ public class MainPageSteps extends BaseSteps {
     @Тогда("появляются нужные пункты:")
     public void появляются_нужные_пункты(List<String> dataTable) {
         SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(mainPage.getBusinessServiceText1())
+        softly.assertThat(businessPage.getBusinessServiceText1())
                 .as("Первая кнопка должна иметь текст 'Услуги РКО'")
                 .isEqualTo(dataTable.get(0));
 
-        softly.assertThat(mainPage.getBusinessServiceText2())
+        softly.assertThat(businessPage.getBusinessServiceText2())
                 .as("Вторая кнопка должна иметь текст 'Бизнес карта'")
                 .isEqualTo(dataTable.get(1));
 
-        softly.assertThat(mainPage.getBusinessServiceText3())
+        softly.assertThat(businessPage.getBusinessServiceText3())
                 .as("Третья кнопка должна иметь текст 'Торговый эквайринг'")
                 .isEqualTo(dataTable.get(2));
 
