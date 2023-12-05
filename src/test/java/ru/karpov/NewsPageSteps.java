@@ -3,12 +3,8 @@ package ru.karpov;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.karpov.pageObjects.NewsPage;
@@ -18,17 +14,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import java.time.Duration;
 import java.util.Calendar;
 
-public class NewsPageSteps {
+
+public class NewsPageSteps extends BaseSteps {
     public static NewsPage newsPage;
-    public static WebDriver driver;
 
     @Дано("открытая новостная страница {string}")
-    public void открытая_новостная_страница(final String url) {
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    public void open_page(final String url) {
+        setupDriver();
         driver.get(url);
 
         newsPage = new NewsPage(driver);
@@ -71,8 +63,6 @@ public class NewsPageSteps {
                 .until(ExpectedConditions.presenceOfElementLocated
                         (By.xpath(".//h3[contains(text(), " +  currentYear + ")]")));
 
-        System.out.println(newsPage.newsCategoryCount("ЧАСТНЫМ КЛИЕНТАМ"));
-
         newsPage.clickNewsFilterValueButton();
 
         Thread.sleep(2000);
@@ -94,7 +84,7 @@ public class NewsPageSteps {
     }
 
     @Тогда("закрыть новостную страницу")
-    public void закрыть_новостную_страницу() {
+    public void close_page() {
         driver.quit();
     }
 }

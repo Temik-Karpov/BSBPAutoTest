@@ -29,6 +29,7 @@ public class NewsPage {
 
     @FindBy(xpath = ".//div[@class = 'css-2imjyh']/span[@class='css-sid0p6']")
     private List<WebElement> newsCategoryValues;
+    ////div[contains(@class, 'chakra-container')][.//button[contains(@class, 'css-2vve5b')][text()='Бизнесу']]/div[contains(@class, 'chakra-linkbox')]//span
 
     @FindBy(xpath = ".//div[@class = 'css-2imjyh']/button[contains(text(), 'Частным клиентам')]")
     private WebElement newsFilterValueButton;

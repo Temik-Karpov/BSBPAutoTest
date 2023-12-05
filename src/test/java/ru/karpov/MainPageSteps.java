@@ -3,13 +3,10 @@ package ru.karpov;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.karpov.pageObjects.CurrencyPage;
@@ -22,21 +19,16 @@ import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class MainPageSteps {
+public class MainPageSteps extends BaseSteps {
 
     public static MainPage mainPage;
     public static NewsPage newsPage;
     public static CurrencyPage currencyPage;
-    public static WebDriver driver;
     public static JavascriptExecutor jse;
 
     @Дано("открытая главная страница {string}")
-    public static void setup(final String url) {
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+    public static void open_page(final String url) {
+        setupDriver();
         driver.get(url);
 
         jse = (JavascriptExecutor) driver;
@@ -127,10 +119,7 @@ public class MainPageSteps {
                 .isEqualTo(title);
     }
 
-    @Тогда("закрыть главную страницу")
-    public void закрыть_страницу() {
-        driver.quit();
-    }
+
 
     @Тогда("появляются нужные пункты:")
     public void появляются_нужные_пункты(List<String> dataTable) {
@@ -148,6 +137,11 @@ public class MainPageSteps {
                 .isEqualTo(dataTable.get(2));
 
         softly.assertAll();
+    }
+
+    @Тогда("закрыть главную страницу")
+    public void close_page() {
+        driver.quit();
     }
 }
 
