@@ -38,6 +38,10 @@ public class MainPage {
     @FindBy(xpath = ".//div[@class = 'css-1qdyvok']/div[@id = '14']")
     private WebElement footerInfo;
 
+    public void setSelectRegion(WebElement selectRegion) {
+        this.selectRegion = selectRegion;
+    }
+
     public List<WebElement> getHeaderButtons() {
         return headerButtons;
     }
@@ -67,6 +71,10 @@ public class MainPage {
         return currencyButton;
     }
 
+    public void input(final WebElement element, final String info) {
+        final Select region = new Select(element);
+        region.selectByValue(info);
+    }
 
     public void inputSelect(final String regionName) {
         final Select region = new Select(this.selectRegion);

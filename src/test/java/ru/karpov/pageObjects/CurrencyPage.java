@@ -23,6 +23,10 @@ public class CurrencyPage {
         return currencyTitle;
     }
 
+    public void setCurrencyButtonList(List<WebElement> currencyButtonList) {
+        this.currencyButtonList = currencyButtonList;
+    }
+
     public List<WebElement> getCurrencyButtonList() {
         return currencyButtonList;
     }

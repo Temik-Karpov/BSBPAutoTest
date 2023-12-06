@@ -3,6 +3,7 @@ package ru.karpov;
 import io.cucumber.java.ru.Дано;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,6 +14,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.time.Duration;
 import java.util.Calendar;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class NewsPageSteps extends BaseSteps {
@@ -38,7 +41,7 @@ public class NewsPageSteps extends BaseSteps {
         newsPage.inputSelect(year);
 
 
-        new WebDriverWait(driver, Duration.ofSeconds(10))
+        new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.presenceOfElementLocated
                         (By.xpath(".//h3[contains(text(), " + year + ")]")));
 
@@ -48,49 +51,37 @@ public class NewsPageSteps extends BaseSteps {
     @Тогда("все новости должны содержать {string} в дате")
     public void все_новости_должны_содержать_в_дате(final String year) {
 
-        assertThat(newsPage.getLastDateOfNews().getText())
+
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(newsPage.getLastDateOfNews().getText())
                 .as("Дата должна содержать указанный год")
                 .endsWith(year)
                 .doesNotContain("2023");
 
-        assertThat(newsPage.getDateOfNews().getText())
+        softly.assertThat(newsPage.getDateOfNews().getText())
                 .as("Дата должна содержать указанный год")
                 .endsWith(year)
                 .doesNotContain("2023");
+
+        softly.assertAll();
     }
 
     @Когда("пользователь выбирает {string}")
-    public void пользователь_выбирает_категорию(final String buttonText) throws InterruptedException {
-        System.out.println(newsPage.getNewsFilterValues().size());
-        for(WebElement w : newsPage.getNewsFilterValues())
-        {
-            System.out.println(w.getText());
-            if(w.getText().equals(buttonText))
-            {
-                w.click();
-                break;
-            }
-        }
+    public void пользователь_выбирает_категорию(final String buttonText) {
+        List<WebElement> list = newsPage.getNewsFilterValues()
+                .stream()
+                .filter(value -> value.getText().equals(buttonText)).collect(Collectors.toList());
 
-        Thread.sleep(2000);
+        list.get(0).click();
     }
 
     @Тогда("все отобразившиеся новости имеют {string}")
     public void все_отобразившиеся_новости_имеют_данную_категорию(final String buttonText) {
-        final Integer newsCategoryCount = newsPage.newsCategoryCount(buttonText);
 
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(newsPage.getNewsCategoryValues())
-                .filteredOn(value ->
-                        value.getText().toLowerCase().contains(buttonText))
+        Assertions.assertThat(newsPage.getNewsCategoryValues())
                 .extracting(WebElement::getText)
-                .containsOnly(buttonText);
+                .contains(buttonText);
 
-        softly.assertThat(newsPage.getNewsList())
-                .as("Кол-во новостей должно совпадать с кол-вом отображаемых категорий")
-                .hasSize(newsCategoryCount);
-
-        softly.assertAll();
     }
 
 

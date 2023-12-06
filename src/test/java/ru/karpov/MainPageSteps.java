@@ -3,20 +3,15 @@ package ru.karpov;
 import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.karpov.pageObjects.BusinessPage;
-import ru.karpov.pageObjects.CurrencyPage;
-import ru.karpov.pageObjects.MainPage;
-import ru.karpov.pageObjects.NewsPage;
+import ru.karpov.pageObjects.*;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -24,45 +19,42 @@ public class MainPageSteps extends BaseSteps {
 
     public MainPage mainPage = new MainPage(driver);
     public NewsPage newsPage = new NewsPage(driver);
-    public CurrencyPage currencyPage = new CurrencyPage(driver);
-
-    public BusinessPage businessPage = new BusinessPage(driver);
     public JavascriptExecutor jse = (JavascriptExecutor) driver;
 
+    public BasePage basePage = new BasePage(driver);
 
 
-    @Когда("пользователь нажимает на кнопку Перейти")
-    public void пользователь_нажимает_на_кнопку_перейти() {
+    @Тогда("в {string} должны появиться кнопки:")
+    public void должны_появиться_пункты(final String block, List<String> buttons) {
+        new WebDriverWait(driver, Duration.ofSeconds(2))
+                .until(ExpectedConditions.visibilityOfElementLocated
+                        (By.xpath("//div[contains(@class, 'chakra-tabs__tablist')][.//button = '"
+                                + buttons.get(0) +"']")));
 
-        jse.executeScript("window.scrollTo(0, 2400)");
+        basePage.setButtonList(driver.findElements
+                (By.xpath("//div[contains(@class, '"+ block + "')]/button")));
 
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.presenceOfElementLocated
-                        (By.xpath(".//ymaps[@class ='ymaps-2-1-79-events-pane ymaps-2-1-79-user-selection-none']")));
+        for(WebElement el : basePage.getButtonList())
+        {
+            System.out.println(el.getText());
+        }
 
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.elementToBeClickable(mainPage.getCurrencyButton()));
+        Assertions.assertThat(basePage.getButtonList())
+                        .extracting(WebElement::getText)
+                        .isEqualTo(buttons);
 
-        mainPage.clickCurrencyButton();
-
-        new WebDriverWait(driver, Duration.ofSeconds(5)).
-                until(ExpectedConditions.visibilityOf(currencyPage.getCurrencyTitle()));
-    }
-
-    @Тогда("должны появиться пункты:")
-    public void должны_появиться_пункты(Map<String, Integer> buttons) {
-        Assertions.assertThat(currencyPage.getCurrencyButtonList())
-                .as("Кол-во кнопок на странице валюты должен быть 5")
+        Assertions.assertThat(basePage.getButtonList())
+                .as("Кол-во кнопок должно совпадать с кол-вом аргументов")
                 .hasSize(buttons.size());
     }
 
-    @Когда("пользователь меняет региона на {string}")
-    public void пользователь_меняет_региона_на(final String region) {
+    @Когда("пользователь меняет select на {string}")
+    public void пользовательМеняетНа(final String text) {
+        mainPage.setSelectRegion(new WebDriverWait(driver, Duration.ofSeconds(5)).
+                until(ExpectedConditions.elementToBeClickable
+                        (By.xpath("//select[.//option[.='" + text + "']]"))));
 
-        new WebDriverWait(driver, Duration.ofSeconds(5)).
-                until(ExpectedConditions.elementToBeClickable(mainPage.getSelectRegion()));
-
-        mainPage.inputSelect(region);
+        mainPage.input(mainPage.getSelectRegion(), text);
     }
 
     @Тогда("текст под номером телефона меняется на {string}")
@@ -75,26 +67,7 @@ public class MainPageSteps extends BaseSteps {
                 .isEqualTo(textUnderPhoneNumber);
     }
 
-    @Когда("пользователь нажимает на кнопку Новостей")
-    public void пользователь_нажимает_на_кнопку_новостей() {
-
-        jse.executeScript("window.scrollTo(0, 2300)");
-
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOfElementLocated(
-                        (By.xpath(".//div[@class = 'css-e1b41g']"))));
-
-
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.elementToBeClickable(mainPage.getShowNewsButton()));
-
-        mainPage.clickShowNewsButton();
-
-        new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.visibilityOf(newsPage.getLastDateOfNews()));
-    }
-
-    @Тогда("появляется заглавный текст {string}")
+    @Тогда("появляется текст {string}")
     public void появляется_заглавный_текст(final String title) {
         assertThat(newsPage.getTitleNewsText())
                 .as("Заглавным текстом на данной странице должен быть 'Новости'")
@@ -104,35 +77,27 @@ public class MainPageSteps extends BaseSteps {
 
     @Когда("пользователь нажимает на {string} в header")
     public void user_press_button(final String buttonText) {
-        for(WebElement w : mainPage.getHeaderButtons())
-        {
-            if(w.getText().equals(buttonText))
-            {
+        for(WebElement w : mainPage.getHeaderButtons()) {
+            if (w.getText().equals(buttonText)) {
                 w.click();
                 break;
             }
         }
     }
 
-    @Тогда("появляются нужные пункты:")
-    public void появляются_нужные_пункты(List<String> dataTable) {
-        SoftAssertions softly = new SoftAssertions();
-        softly.assertThat(businessPage.getBusinessServiceText1())
-                .as("Первая кнопка должна иметь текст 'Услуги РКО'")
-                .isEqualTo(dataTable.get(0));
+    @Когда("пользователь нажимает на кнопку {string}")
+    public void пользовательНажимаетНаКнопку(final String buttonText) {
+        mainPage.setShowNewsButton(driver.findElement(By.xpath("//a[text() = '" + buttonText + "']")));
 
-        softly.assertThat(businessPage.getBusinessServiceText2())
-                .as("Вторая кнопка должна иметь текст 'Бизнес карта'")
-                .isEqualTo(dataTable.get(1));
+        jse.executeScript("window.scrollTo(0, 2100)");
 
-        softly.assertThat(businessPage.getBusinessServiceText3())
-                .as("Третья кнопка должна иметь текст 'Торговый эквайринг'")
-                .isEqualTo(dataTable.get(2));
+        new WebDriverWait(driver, Duration.ofSeconds(1))
+                .until(ExpectedConditions.invisibilityOf(newsPage.getLastDateOfNews()));
 
-        softly.assertAll();
+        mainPage.getShowNewsButton().click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(1))
+                .until(ExpectedConditions.invisibilityOf(mainPage.getShowNewsButton()));
     }
-
-
-
 }
 

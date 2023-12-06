@@ -52,7 +52,7 @@ public class NewsPage {
     public Integer newsCategoryCount(final String category)
     {
         int count = 0;
-        for(WebElement element : this.newsFilterValues)
+        for(WebElement element : this.newsCategoryValues)
         {
             if(element.getText().equals(category))
                 count++;
