@@ -1,234 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Тестирование главной страницы сайта" tests="4" skipped="0" failures="3" errors="0" timestamp="2023-12-05T15:15:19" hostname="LAPTOP-65K5U4D1" time="22.141">
+<testsuite name="Тестирование главной страницы сайта" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-12-06T10:59:44" hostname="LAPTOP-65K5U4D1" time="47.641">
   <properties/>
-  <testcase name="Успешная смена региона" classname="Тестирование главной страницы сайта" time="6.984"/>
-  <testcase name="Проверка перехода на вкладки в header" classname="Тестирование главной страницы сайта" time="5.036">
-    <failure message="java.lang.VerifyError: Expecting a stackmap frame at branch target 43&#10;Exception Details:&#10;  Location:&#10;    org/assertj/core/api/StringAssert$ByteBuddy$YIbrdZNC.isAlphanumeric()Lorg/assertj/core/api/StringAssert; @9: invokestatic&#10;  Reason:&#10;    Expected stackmap frame at this location.&#10;  Bytecode:&#10;    0000000: b208 bc2a 2ab8 0833 4cb8 0839 2bb6 083d&#10;    0000010: 2ab4 000e 2abb 0284 592a b702 85b2 0288&#10;    0000020: 01b8 001e c000 044e a700 0d4d b808 392c&#10;    0000030: b608 412c bfb8 0839 b608 442d b0       &#10;  Exception Handler Table:&#10;    bci [9, 43] =&gt; handler: 43&#10;" type="java.lang.VerifyError">java.lang.VerifyError: Expecting a stackmap frame at branch target 43
-Exception Details:
-  Location:
-    org/assertj/core/api/StringAssert$ByteBuddy$YIbrdZNC.isAlphanumeric()Lorg/assertj/core/api/StringAssert; @9: invokestatic
-  Reason:
-    Expected stackmap frame at this location.
-  Bytecode:
-    0000000: b208 bc2a 2ab8 0833 4cb8 0839 2bb6 083d
-    0000010: 2ab4 000e 2abb 0284 592a b702 85b2 0288
-    0000020: 01b8 001e c000 044e a700 0d4d b808 392c
-    0000030: b608 412c bfb8 0839 b608 442d b0       
-  Exception Handler Table:
-    bci [9, 43] =&gt; handler: 43
-
-	at java.base/java.lang.Class.getDeclaredConstructors0(Native Method)
-	at java.base/java.lang.Class.privateGetDeclaredConstructors(Class.java:3373)
-	at java.base/java.lang.Class.getConstructor0(Class.java:3578)
-	at java.base/java.lang.Class.getConstructor(Class.java:2271)
-	at org.assertj.core.api.SoftProxies.createSoftAssertionProxy(SoftProxies.java:121)
-	at org.assertj.core.api.AbstractSoftAssertions.proxy(AbstractSoftAssertions.java:48)
-	at org.assertj.core.api.Java6StandardSoftAssertionsProvider.assertThat(Java6StandardSoftAssertionsProvider.java:677)
-	at ru.karpov.MainPageSteps.появляются_нужные_пункты(MainPageSteps.java:120)
-	at ✽.появляются нужные пункты:(file:///C:/Users/BSPB/IdeaProjects/BSBPAutoTest/src/test/resources/features/mainPage.feature:15)
-</failure>
-  </testcase>
-  <testcase name="Проверка перехода на страницу Новостей" classname="Тестирование главной страницы сайта" time="4.31">
-    <failure message="org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (759, 1292)&#10;  (Session info: chrome=119.0.6045.200)&#10;Build info: version: '4.15.0', revision: '1d14b5521b'&#10;System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Command: [fed0790f126de911664792d14cc9301f, clickElement {id=A0ACC732630DB5A4DBCCECA6851AAC4B_element_23}]&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 119.0.6045.200, chrome: {chromedriverVersion: 119.0.6045.105 (38c72552c5e..., userDataDir: C:\Users\BSPB\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55504}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55504/devtoo..., se:cdpVersion: 119.0.6045.200, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}&#10;Element: [[ChromeDriver: chrome on windows (fed0790f126de911664792d14cc9301f)] -&gt; xpath: //*[contains(@class, 'css-pka4it')]]&#10;Session ID: fed0790f126de911664792d14cc9301f" type="org.openqa.selenium.ElementClickInterceptedException">org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (759, 1292)
-  (Session info: chrome=119.0.6045.200)
-Build info: version: '4.15.0', revision: '1d14b5521b'
-System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [fed0790f126de911664792d14cc9301f, clickElement {id=A0ACC732630DB5A4DBCCECA6851AAC4B_element_23}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 119.0.6045.200, chrome: {chromedriverVersion: 119.0.6045.105 (38c72552c5e..., userDataDir: C:\Users\BSPB\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55504}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55504/devtoo..., se:cdpVersion: 119.0.6045.200, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (fed0790f126de911664792d14cc9301f)] -&gt; xpath: //*[contains(@class, 'css-pka4it')]]
-Session ID: fed0790f126de911664792d14cc9301f
-	at java.base@17.0.9/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at java.base@17.0.9/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base@17.0.9/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base@17.0.9/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at app//org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
-	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
-	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
-	at app//org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:607)
-	at app//org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
-	at app//org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base@17.0.9/java.lang.reflect.Method.invoke(Method.java:568)
-	at app//org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
-	at app/jdk.proxy3/jdk.proxy3.$Proxy25.click(Unknown Source)
-	at app//ru.karpov.pageObjects.MainPage.clickShowNewsButton(MainPage.java:78)
-	at app//ru.karpov.MainPageSteps.пользователь_нажимает_на_кнопку_новостей(MainPageSteps.java:91)
-	at ✽.пользователь нажимает на кнопку Новостей(file:///C:/Users/BSPB/IdeaProjects/BSBPAutoTest/src/test/resources/features/mainPage.feature:27)
-</failure>
-  </testcase>
-  <testcase name="Проверка перехода на страницу Валют" classname="Тестирование главной страницы сайта" time="5.794">
-    <failure message="org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (304, 750)&#10;  (Session info: chrome=119.0.6045.200)&#10;Build info: version: '4.15.0', revision: '1d14b5521b'&#10;System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'&#10;Driver info: org.openqa.selenium.chrome.ChromeDriver&#10;Command: [dcb6064e4a981188af7e2486e0efea10, clickElement {id=1EEA4B4ED4E1541A71C41D2F3EE80A8E_element_36}]&#10;Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 119.0.6045.200, chrome: {chromedriverVersion: 119.0.6045.105 (38c72552c5e..., userDataDir: C:\Users\BSPB\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55555}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55555/devtoo..., se:cdpVersion: 119.0.6045.200, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}&#10;Element: [[ChromeDriver: chrome on windows (dcb6064e4a981188af7e2486e0efea10)] -&gt; xpath: .//a[@href = '/finance/exchange'][@class = 'chakra-link css-6x1e5l']]&#10;Session ID: dcb6064e4a981188af7e2486e0efea10" type="org.openqa.selenium.ElementClickInterceptedException">org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element is not clickable at point (304, 750)
-  (Session info: chrome=119.0.6045.200)
-Build info: version: '4.15.0', revision: '1d14b5521b'
-System info: os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.9'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [dcb6064e4a981188af7e2486e0efea10, clickElement {id=1EEA4B4ED4E1541A71C41D2F3EE80A8E_element_36}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 119.0.6045.200, chrome: {chromedriverVersion: 119.0.6045.105 (38c72552c5e..., userDataDir: C:\Users\BSPB\AppData\Local...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:55555}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: windows, proxy: Proxy(), se:cdp: ws://localhost:55555/devtoo..., se:cdpVersion: 119.0.6045.200, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
-Element: [[ChromeDriver: chrome on windows (dcb6064e4a981188af7e2486e0efea10)] -&gt; xpath: .//a[@href = '/finance/exchange'][@class = 'chakra-link css-6x1e5l']]
-Session ID: dcb6064e4a981188af7e2486e0efea10
-	at java.base@17.0.9/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at java.base@17.0.9/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.base@17.0.9/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base@17.0.9/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-	at app//org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:52)
-	at app//org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:191)
-	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:200)
-	at app//org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:175)
-	at app//org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:607)
-	at app//org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:224)
-	at app//org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base@17.0.9/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base@17.0.9/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base@17.0.9/java.lang.reflect.Method.invoke(Method.java:568)
-	at app//org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:51)
-	at app/jdk.proxy3/jdk.proxy3.$Proxy25.click(Unknown Source)
-	at app//ru.karpov.pageObjects.MainPage.clickCurrencyButton(MainPage.java:63)
-	at app//ru.karpov.MainPageSteps.пользователь_нажимает_на_кнопку_перейти(MainPageSteps.java:46)
-	at ✽.пользователь нажимает на кнопку Перейти(file:///C:/Users/BSPB/IdeaProjects/BSBPAutoTest/src/test/resources/features/mainPage.feature:34)
-</failure>
-  </testcase>
-  <system-out><![CDATA[18:15:20.222 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
-18:15:20.658 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 18:37:33 05/12/2023 MSK)
-18:15:20.660 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
-18:15:20.661 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
-18:15:20.692 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
-18:15:20.693 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
-18:15:27.008 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
-18:15:27.020 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 18:37:33 05/12/2023 MSK)
-18:15:27.021 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
-18:15:27.021 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
-18:15:27.028 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
-18:15:27.030 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
-18:15:32.032 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
-18:15:32.043 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 18:37:33 05/12/2023 MSK)
-18:15:32.045 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
-18:15:32.045 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
-18:15:32.051 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
-18:15:32.052 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
-18:15:36.357 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
-18:15:36.367 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 18:37:33 05/12/2023 MSK)
-18:15:36.368 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:41:09 06/12/2023 MSK)
-18:15:36.369 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
-18:15:36.380 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
-18:15:36.381 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
+  <testcase name="Успешная смена региона" classname="Тестирование главной страницы сайта" time="11.403"/>
+  <testcase name="Проверка перехода на вкладки в header" classname="Тестирование главной страницы сайта" time="7.027"/>
+  <testcase name="Проверка перехода на страницу Новостей" classname="Тестирование главной страницы сайта" time="16.722"/>
+  <testcase name="Проверка перехода на страницу Валют" classname="Тестирование главной страницы сайта" time="12.465"/>
+  <system-out><![CDATA[13:59:44.893 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
+13:59:45.458 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 14:29:47 06/12/2023 MSK)
+13:59:45.460 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:44:47 07/12/2023 MSK)
+13:59:45.461 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
+13:59:45.503 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
+13:59:45.505 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
+13:59:56.085 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
+13:59:56.099 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 14:29:47 06/12/2023 MSK)
+13:59:56.100 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:44:47 07/12/2023 MSK)
+13:59:56.100 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
+13:59:56.109 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
+13:59:56.110 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
+Услуги РКО
+Бизнес карта
+Торговый эквайринг
+Мобильное приложение
+14:00:03.107 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
+14:00:03.136 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 14:29:47 06/12/2023 MSK)
+14:00:03.137 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:44:47 07/12/2023 MSK)
+14:00:03.138 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
+14:00:03.162 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
+14:00:03.164 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
+14:00:19.845 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Using WebDriverManager 5.6.2
+14:00:19.897 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome=119 in cache (valid until 14:29:47 06/12/2023 MSK)
+14:00:19.900 [Test worker] DEBUG io.github.bonigarcia.wdm.cache.ResolutionCache -- Resolution chrome119=119.0.6045.105 in cache (valid until 11:44:47 07/12/2023 MSK)
+14:00:19.900 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 119.0.6045.105 (resolved driver for Chrome 119)
+14:00:19.924 [Test worker] DEBUG io.github.bonigarcia.wdm.WebDriverManager -- Driver chromedriver 119.0.6045.105 found in cache
+14:00:19.926 [Test worker] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\BSPB\.cache\selenium\chromedriver\win64\119.0.6045.105\chromedriver.exe
+В офисе
+По карте
+Онлайн
+Документы
+Вопросы
 ]]></system-out>
-  <system-err><![CDATA[AspectJ Internal Error: unable to add stackmap attributes. Unsupported class file major version 61
-java.lang.IllegalArgumentException: Unsupported class file major version 61
-	at aj.org.objectweb.asm.ClassReader.<init>(ClassReader.java:195)
-	at aj.org.objectweb.asm.ClassReader.<init>(ClassReader.java:176)
-	at aj.org.objectweb.asm.ClassReader.<init>(ClassReader.java:162)
-	at org.aspectj.weaver.bcel.asm.StackMapAdder.addStackMaps(StackMapAdder.java:42)
-	at org.aspectj.weaver.bcel.LazyClassGen.getJavaClassBytesIncludingReweavable(LazyClassGen.java:764)
-	at org.aspectj.weaver.bcel.BcelWeaver.getClassFilesFor(BcelWeaver.java:1464)
-	at org.aspectj.weaver.bcel.BcelWeaver.weaveAndNotify(BcelWeaver.java:1426)
-	at org.aspectj.weaver.bcel.BcelWeaver.weave(BcelWeaver.java:1196)
-	at org.aspectj.weaver.tools.WeavingAdaptor.getWovenBytes(WeavingAdaptor.java:551)
-	at org.aspectj.weaver.tools.WeavingAdaptor.weaveClass(WeavingAdaptor.java:387)
-	at org.aspectj.weaver.loadtime.Aj.preProcess(Aj.java:116)
-	at org.aspectj.weaver.loadtime.ClassPreProcessorAgentAdapter.transform(ClassPreProcessorAgentAdapter.java:51)
-	at java.instrument/java.lang.instrument.ClassFileTransformer.transform(ClassFileTransformer.java:244)
-	at java.instrument/sun.instrument.TransformerManager.transform(TransformerManager.java:188)
-	at java.instrument/sun.instrument.InstrumentationImpl.transform(InstrumentationImpl.java:541)
-	at java.base/java.lang.ClassLoader.defineClass1(Native Method)
-	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1012)
-	at java.base/java.lang.ClassLoader$ByteBuddyAccessor$V1.defineClass(Unknown Source)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at net.bytebuddy.dynamic.loading.ClassInjector$UsingReflection$Dispatcher$UsingUnsafeInjection.defineClass(ClassInjector.java:1041)
-	at net.bytebuddy.dynamic.loading.ClassInjector$UsingReflection.injectRaw(ClassInjector.java:284)
-	at net.bytebuddy.dynamic.loading.ClassInjector$AbstractBase.inject(ClassInjector.java:118)
-	at net.bytebuddy.dynamic.loading.ClassLoadingStrategy$Default$InjectionDispatcher.load(ClassLoadingStrategy.java:241)
-	at net.bytebuddy.dynamic.loading.ClassLoadingStrategy$Default.load(ClassLoadingStrategy.java:148)
-	at net.bytebuddy.dynamic.TypeResolutionStrategy$Passive.initialize(TypeResolutionStrategy.java:101)
-	at net.bytebuddy.dynamic.DynamicType$Default$Unloaded.load(DynamicType.java:6317)
-	at org.assertj.core.api.SoftProxies.generateProxyClass(SoftProxies.java:218)
-	at org.assertj.core.api.SoftProxies.lambda$createSoftAssertionProxyClass$0(SoftProxies.java:135)
-	at net.bytebuddy.TypeCache.findOrInsert(TypeCache.java:168)
-	at net.bytebuddy.TypeCache$WithInlineExpunction.findOrInsert(TypeCache.java:399)
-	at org.assertj.core.api.SoftProxies.createSoftAssertionProxyClass(SoftProxies.java:134)
-	at org.assertj.core.api.SoftProxies.createSoftAssertionProxy(SoftProxies.java:120)
-	at org.assertj.core.api.AbstractSoftAssertions.proxy(AbstractSoftAssertions.java:48)
-	at org.assertj.core.api.Java6StandardSoftAssertionsProvider.assertThat(Java6StandardSoftAssertionsProvider.java:677)
-	at ru.karpov.MainPageSteps.появляются_нужные_пункты(MainPageSteps.java:120)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at io.cucumber.java.Invoker.doInvoke(Invoker.java:66)
-	at io.cucumber.java.Invoker.invoke(Invoker.java:24)
-	at io.cucumber.java.AbstractGlueDefinition.invokeMethod(AbstractGlueDefinition.java:47)
-	at io.cucumber.java.JavaStepDefinition.execute(JavaStepDefinition.java:29)
-	at io.cucumber.core.runner.CoreStepDefinition.execute(CoreStepDefinition.java:66)
-	at io.cucumber.core.runner.PickleStepDefinitionMatch.runStep(PickleStepDefinitionMatch.java:63)
-	at io.cucumber.core.runner.ExecutionMode$1.execute(ExecutionMode.java:10)
-	at io.cucumber.core.runner.TestStep.executeStep(TestStep.java:84)
-	at io.cucumber.core.runner.TestStep.run(TestStep.java:56)
-	at io.cucumber.core.runner.PickleStepTestStep.run(PickleStepTestStep.java:51)
-	at io.cucumber.core.runner.TestCase.run(TestCase.java:84)
-	at io.cucumber.core.runner.Runner.runPickle(Runner.java:75)
-	at io.cucumber.junit.PickleRunners$NoStepDescriptions.lambda$run$0(PickleRunners.java:151)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runTestCase$5(CucumberExecutionContext.java:137)
-	at io.cucumber.core.runtime.RethrowingThrowableCollector.executeAndThrow(RethrowingThrowableCollector.java:23)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runTestCase(CucumberExecutionContext.java:137)
-	at io.cucumber.junit.PickleRunners$NoStepDescriptions.run(PickleRunners.java:148)
-	at io.cucumber.junit.FeatureRunner.runChild(FeatureRunner.java:144)
-	at io.cucumber.junit.FeatureRunner.runChild(FeatureRunner.java:28)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at io.cucumber.junit.FeatureRunner.run(FeatureRunner.java:137)
-	at io.cucumber.junit.Cucumber.runChild(Cucumber.java:196)
-	at io.cucumber.junit.Cucumber.runChild(Cucumber.java:89)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at io.cucumber.core.runtime.CucumberExecutionContext.lambda$runFeatures$6(CucumberExecutionContext.java:148)
-	at io.cucumber.core.runtime.CucumberExecutionContext.execute(CucumberExecutionContext.java:163)
-	at io.cucumber.core.runtime.CucumberExecutionContext.runFeatures(CucumberExecutionContext.java:146)
-	at io.cucumber.junit.Cucumber$StartAndFinishTestRun.evaluate(Cucumber.java:226)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:112)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:40)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:60)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:52)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
-	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
-	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-]]></system-err>
+  <system-err><![CDATA[]]></system-err>
 </testsuite>
