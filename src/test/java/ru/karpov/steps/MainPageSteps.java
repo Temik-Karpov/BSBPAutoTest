@@ -4,13 +4,18 @@ import io.cucumber.java.ru.Когда;
 import io.cucumber.java.ru.Тогда;
 import org.assertj.core.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.karpov.pageObjects.*;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -24,19 +29,27 @@ public class MainPageSteps extends BaseSteps {
 
 
     @Тогда("в {string} должны появиться кнопки:")
-    public void должны_появиться_пункты(final String block, List<String> buttons) {
-        new WebDriverWait(driver, Duration.ofSeconds(2))
-                .until(ExpectedConditions.visibilityOf(basePage.getBlockButton(block, buttons.get(0))));
+    public void должны_появиться_пункты(final String className, Map<String,String> buttons)
+            throws NoSuchFieldException, IllegalAccessException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException {
 
-        basePage.setButtonList(block);
+        Class<?> clazz = Class.forName("ru.karpov.pageObjects." + className);
 
-        Assertions.assertThat(basePage.getButtonList())
-                        .extracting(WebElement::getText)
-                        .isEqualTo(buttons);
+        List<WebElement> buttonList = new ArrayList<>();
+        for(String key : buttons.keySet())
+        {
+            Field field = clazz.getDeclaredField(key);
+            field.setAccessible(true);
+            Object pageObject = clazz.getDeclaredConstructor(WebDriver.class).newInstance(driver);
+            buttonList.add((WebElement) field.get(pageObject));
+        }
 
-        Assertions.assertThat(basePage.getButtonList())
-                .as("Кол-во кнопок должно совпадать с кол-вом аргументов")
+        jse.executeScript("window.scrollTo(0, 200)");
+
+        Assertions.assertThat(buttonList)
+                .extracting(WebElement::getText)
+                .isEqualTo(new ArrayList<>(buttons.values()))
                 .hasSize(buttons.size());
+
     }
 
     @Когда("пользователь меняет select на {string}")
@@ -45,6 +58,8 @@ public class MainPageSteps extends BaseSteps {
                 until(ExpectedConditions.elementToBeClickable(basePage.getSelect(text))));
 
         input(basePage.getSelect(), text);
+        screenshotAllure();
+        contentAllure("content", text);
     }
 
     @Тогда("текст под номером телефона меняется на {string}")
@@ -66,29 +81,33 @@ public class MainPageSteps extends BaseSteps {
     }
 
     @Когда("пользователь нажимает на {string} в header")
-    public void user_press_button(final String buttonText) {
-        for(WebElement w : mainPage.getHeaderButtons()) {
-            if (w.getText().equals(buttonText)) {
-                w.click();
-                break;
-            }
-        }
+    public void user_press_button(final String objectName) throws NoSuchFieldException, IllegalAccessException {
+
+        Class<?> c = mainPage.getClass();
+        Field field = c.getDeclaredField(objectName);
+        field.setAccessible(true);
+        WebElement link = (WebElement) field.get(mainPage);
+
+        link.click();
     }
 
-    @Когда("пользователь нажимает на кнопку {string}")
-    public void пользовательНажимаетНаКнопку(final String buttonText) {
+    @Когда("пользователь нажимает на {string}")
+    public void пользовательНажимаетНаКнопку(final String objectName) throws NoSuchFieldException, IllegalAccessException {
 
-        mainPage.setShowNewsButton(basePage.getLink(buttonText));
+        Class<?> c = mainPage.getClass();
+        Field field = c.getDeclaredField(objectName);
+        field.setAccessible(true);
+        WebElement link = (WebElement) field.get(mainPage);
 
-        jse.executeScript("window.scrollTo(0, 2100)");
+        jse.executeScript("window.scrollTo(0, 2300)");
 
         new WebDriverWait(driver, Duration.ofSeconds(2))
                 .until(ExpectedConditions.invisibilityOf(newsPage.getLastDateOfNews()));
 
-        mainPage.getShowNewsButton().click();
+        link.click();
 
         new WebDriverWait(driver, Duration.ofSeconds(5))
-                .until(ExpectedConditions.invisibilityOf(mainPage.getShowNewsButton()));
+                .until(ExpectedConditions.invisibilityOf(link));
     }
 }
 

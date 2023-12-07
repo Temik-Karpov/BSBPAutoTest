@@ -23,20 +23,24 @@ public class MainPage {
     @FindBy(xpath = "//a[contains(@class, 'css-kixvqm')]")
     private List<WebElement> headerButtons;
 
-    @FindBy(xpath = "//*[contains(@class, 'css-pka4it')]")
-    private WebElement showNewsButton;
+    @FindBy(xpath = "//a[@href = '/business']")
+    private WebElement headerBusinessLink;
+
+    @FindBy(xpath = "//a[contains(@href, '/news?client_type_id=1')]")
+    private WebElement showNewsLink;
 
     @FindBy(css = ".css-ed0axp > #\\33 > .chakra-text")
     private WebElement regionSelect;
 
-    @FindBy(xpath = ".//a[@href = '/finance/exchange'][@class = 'chakra-link css-6x1e5l']")
-    private WebElement currencyButton;
+    @FindBy(xpath = "//a[text() = 'Перейти']")
+    private WebElement currencyLink;
 
     @FindBy(xpath = ".//h3[text() = 'Офисы и банкоматы']")
     private WebElement mapText;
 
     @FindBy(xpath = ".//div[@class = 'css-1qdyvok']/div[@id = '14']")
     private WebElement footerInfo;
+
 
     public void setSelectRegion(WebElement selectRegion) {
         this.selectRegion = selectRegion;
@@ -58,19 +62,6 @@ public class MainPage {
         return mapText;
     }
 
-    public void setCurrencyButton(final WebElement currencyButton) {
-        this.currencyButton = currencyButton;
-    }
-
-    public void clickCurrencyButton()
-    {
-        this.currencyButton.click();
-    }
-
-    public WebElement getCurrencyButton() {
-        return currencyButton;
-    }
-
     public void input(final WebElement element, final String info) {
         final Select region = new Select(element);
         region.selectByValue(info);
@@ -81,23 +72,9 @@ public class MainPage {
         region.selectByValue(regionName);
     }
 
-    public void clickShowNewsButton()
-    {
-        this.showNewsButton.click();
-    }
 
 
     public WebElement getSelectRegion() {
         return selectRegion;
-    }
-
-
-    public WebElement getShowNewsButton() {
-        return showNewsButton;
-    }
-
-
-    public void setShowNewsButton(final WebElement showNewsButton) {
-        this.showNewsButton = showNewsButton;
     }
 }
