@@ -72,8 +72,6 @@ public class MainPage {
         region.selectByValue(regionName);
     }
 
-
-
     public WebElement getSelectRegion() {
         return selectRegion;
     }

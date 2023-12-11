@@ -13,8 +13,8 @@ public class NewsPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(xpath="//*[@id=\"app-wrapper\"]/main/div/div/div[1]/h2")
-    private WebElement titleNews;
+    @FindBy(xpath="//h2")
+    private WebElement newsTitleH2;
 
     @FindBy(xpath = ".//div[contains(@class, 'css-11s8iwf')][contains(@class, 'chakra-container')]" +
             "/h3[@class = 'css-1elu3ke'][position()=1]")
@@ -28,6 +28,11 @@ public class NewsPage {
 
     @FindBy(xpath = "//div[contains(@class, 'chakra-container')][.//button='Бизнесу']//button")
     private List<WebElement> newsFilterValues;
+
+    @FindBy(xpath = "//div[contains(@class, 'chakra-container')][.//h2]//button[3]")
+    private WebElement filterClientsValueButton;
+
+
 
     public List<WebElement> getNewsFilterValues() {
         return newsFilterValues;
@@ -43,10 +48,6 @@ public class NewsPage {
 
     public WebElement getLastDateOfNews() {
         return lastDateOfNews;
-    }
-
-    public String getTitleNewsText() {
-        return titleNews.getText();
     }
 
 }

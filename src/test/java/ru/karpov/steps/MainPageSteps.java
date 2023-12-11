@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.setRemoveAssertJRelatedElementsFromStackTrace;
 
-public class MainPageSteps extends BaseSteps {
+public class MainPageSteps extends BaseMethods {
 
     public final MainPage mainPage = new MainPage(driver);
-    public final NewsPage newsPage = new NewsPage(driver);
     public final JavascriptExecutor jse = (JavascriptExecutor) driver;
 
     public final BasePage basePage = new BasePage(driver);
@@ -49,7 +49,6 @@ public class MainPageSteps extends BaseSteps {
                 .extracting(WebElement::getText)
                 .isEqualTo(new ArrayList<>(buttons.values()))
                 .hasSize(buttons.size());
-
     }
 
     @Когда("пользователь меняет select на {string}")
@@ -72,13 +71,7 @@ public class MainPageSteps extends BaseSteps {
                 .isEqualTo(textUnderPhoneNumber);
     }
 
-    @Тогда("появляется текст {string}")
-    public void появляется_заглавный_текст(final String title) {
-        assertThat(newsPage.getTitleNewsText())
-                .as("Заглавным текстом на данной странице должен быть 'Новости'")
-                .isNotNull()
-                .isEqualTo(title);
-    }
+
 
     @Когда("пользователь нажимает на {string} в header")
     public void user_press_button(final String objectName) throws NoSuchFieldException, IllegalAccessException {
@@ -92,18 +85,15 @@ public class MainPageSteps extends BaseSteps {
     }
 
     @Когда("пользователь нажимает на {string}")
-    public void пользовательНажимаетНаКнопку(final String objectName) throws NoSuchFieldException, IllegalAccessException {
+    public void пользовательНажимаетНаКнопку(final String objectName) throws NoSuchFieldException, IllegalAccessException, InterruptedException {
 
         Class<?> c = mainPage.getClass();
         Field field = c.getDeclaredField(objectName);
         field.setAccessible(true);
         WebElement link = (WebElement) field.get(mainPage);
 
-        jse.executeScript("window.scrollTo(0, 2300)");
-
-        new WebDriverWait(driver, Duration.ofSeconds(2))
-                .until(ExpectedConditions.invisibilityOf(newsPage.getLastDateOfNews()));
-
+        jse.executeScript("window.scrollTo(0, 2200)");
+        link.sendKeys("test");
         link.click();
 
         new WebDriverWait(driver, Duration.ofSeconds(5))

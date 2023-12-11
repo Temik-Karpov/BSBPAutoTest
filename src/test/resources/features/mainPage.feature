@@ -22,18 +22,20 @@
     Затем закрыть страницу
 
 
-
   @MainPageTest @NewsPageTest
   Сценарий: Проверка перехода на страницу Новостей
     Дано перейти по url "https://www.bspb.ru/"
+    Когда пользователь в "MainPage" скроллит до элемента "showNewsLink"
     Когда пользователь нажимает на "showNewsLink"
-    Тогда появляется текст "Новости"
+    Тогда в "NewsPage" должны появиться кнопки:
+      | newsTitleH2 | Новости |
     Затем закрыть страницу
 
 
   @MainPageTest @CurrencyPage
   Сценарий: Проверка перехода на страницу Валют
     Дано перейти по url "https://www.bspb.ru/"
+    Когда пользователь в "MainPage" скроллит до элемента "currencyLink"
     Когда пользователь нажимает на "currencyLink"
     Тогда в "CurrencyPage" должны появиться кнопки:
       | tabFirstButton  | В офисе   |

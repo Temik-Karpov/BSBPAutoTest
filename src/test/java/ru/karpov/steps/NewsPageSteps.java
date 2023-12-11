@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
-public class NewsPageSteps extends BaseSteps {
+public class NewsPageSteps extends BaseMethods {
 
     public final NewsPage newsPage = new NewsPage(driver);
 

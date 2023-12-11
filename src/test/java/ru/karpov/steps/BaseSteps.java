@@ -1,54 +1,41 @@
 package ru.karpov.steps;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import io.qameta.allure.Allure;
-import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import io.cucumber.java.ru.Дано;
+import io.cucumber.java.ru.Затем;
+import io.cucumber.java.ru.Когда;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 
-public class BaseSteps {
-    protected static WebDriver driver;
+public class BaseSteps extends BaseMethods {
 
-    @Before
-    public void setupDriver()
+    @Дано("перейти по url {string}")
+    public void open_page(final String url)
     {
-        WebDriverManager.chromedriver().setup();
-
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        setupDriver();
+        driver.get(url);
     }
 
-    protected void screenshotAllure() {
-        try {
-            File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            Allure.addAttachment("screenshot", FileUtils.openInputStream(srcFile));
-        }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+    @Затем("закрыть страницу")
+    public void close_page() {
+        driver.quit();
     }
 
-    public void input(final WebElement element, final String info) {
-        final Select region = new Select(element);
-        region.selectByValue(info);
+    @Когда("пользователь в {string} скроллит до элемента {string}")
+    public void scroll_to_element(final String className, final String elementName)
+            throws ClassNotFoundException, NoSuchFieldException, NoSuchMethodException,
+            InvocationTargetException, InstantiationException, IllegalAccessException {
+
+        Class<?> clazz = Class.forName("ru.karpov.pageObjects." + className);
+        Field field = clazz.getDeclaredField(elementName);
+        field.setAccessible(true);
+        Object pageObject = clazz.getDeclaredConstructor(WebDriver.class).newInstance(driver);
     }
-
-    protected void contentAllure(final String title, final String content)
-    {
-        Allure.addAttachment(title, content);
-    }
-
-
 }
