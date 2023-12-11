@@ -35,7 +35,6 @@
   @MainPageTest @CurrencyPage
   Сценарий: Проверка перехода на страницу Валют
     Дано перейти по url "https://www.bspb.ru/"
-    Когда пользователь в "MainPage" скроллит до элемента "currencyLink"
     Когда пользователь нажимает на "currencyLink"
     Тогда в "CurrencyPage" должны появиться кнопки:
       | tabFirstButton  | В офисе   |
